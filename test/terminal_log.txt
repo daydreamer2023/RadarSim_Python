@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "C:\scripts\python\RadarSim\725_main.py", line 119, in <module>
+    main()
+  File "C:\scripts\python\RadarSim\725_main.py", line 53, in main
+    trueLosRCh1[ii,:] = m.sqrt(trueRtCh1[ii,1]**2 + trueRtCh1[ii,2]**2)
+IndexError: index 2 is out of bounds for axis 1 with size 2
