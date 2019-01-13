@@ -1,5 +1,8 @@
-# matchFilt.py
-# Description: Define function Matched Filter function
+"""
+matchFilt.py
+
+Description: Define function Matched Filter function
+"""
 
 # NEEDS CORRECTION
 

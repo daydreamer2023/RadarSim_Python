@@ -1,5 +1,8 @@
-# simInit.py
-# Description: Initialize simulation parameters
+"""
+simInit.py
+
+Description: Initialize simulation parameters
+"""
 
 import numpy as np
 

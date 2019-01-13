@@ -1,5 +1,8 @@
-# calcSNR.py
-# Description: Define function to calculate SNR
+"""
+calcSNR.py
+
+Description: Define function to calculate SNR
+"""
 
 import math
 import simInit as si

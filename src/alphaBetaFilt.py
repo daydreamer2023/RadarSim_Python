@@ -1,5 +1,8 @@
-# alphaBetaFilt.py
-# Description: Define Alpha Beta Filter function
+"""
+alphaBetaFilt.py
+
+Description: Define Alpha Beta Filter function
+"""
 
 import numpy as np
 import simInit as si

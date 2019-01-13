@@ -1,18 +1,20 @@
-# 725_main.py
-#
-# Project Path: C:\Users\Joseph\PycharmProjects\RadarSim
-# Description: EE 725 Radar Project
-#              (originally implemented using MATLAB, converted to Python)
-#
-#   Program Outline:
-#       1) Initialize program parameters
-#           a) Set up constants
-#           b) Set up radar/waveform parameters
-#       2) Generate target truth data for both radar channels
-#       3) Generate range-pulse/range-Doppler matrices for both radar channels
-#       4) Generate smoothed position with AB Filter
-#       5) Generate smoothed elevation angle data with AB Filter
-#       6) Plot results
+"""
+725_main.py
+
+Project Path: "C:\\Users\\Joseph\\PycharmProjects\\RadarSim"
+Description: EE 725 Radar Project
+             (originally implemented using MATLAB, converted to Python)
+
+  Program Outline:
+      1) Initialize program parameters
+          a) Set up constants
+          b) Set up radar/waveform parameters
+      2) Generate target truth data for both radar channels
+      3) Generate range-pulse/range-Doppler matrices for both radar channels
+      4) Generate smoothed position with AB Filter
+      5) Generate smoothed elevation angle data with AB Filter
+      6) Plot results
+"""
 
 # import libraries
 import numpy as np
@@ -49,22 +51,22 @@ def main():
     for ii in range(0,numel):
         trueRtCh1[ii,:] = np.subtract(si.RinitCh1, si.v*t[ii])
         trueRtCh2[ii,:] = np.subtract(si.RinitCh2, si.v*t[ii])
+        
+        trueLosRCh1[ii,:] = m.sqrt(trueRtCh1[ii,0]**2 + trueRtCh1[ii,1]**2)
+        trueLosRCh2[ii,:] = m.sqrt(trueRtCh2[ii,0]**2 + trueRtCh2[ii,1]**2)
 
-        trueLosRCh1[ii,:] = m.sqrt(trueRtCh1[ii,1]**2 + trueRtCh1[ii,2]**2)
-        trueLosRCh2[ii,:] = m.sqrt(trueRtCh2[ii,1]**2 + trueRtCh2[ii,2]**2)
+        trueElAngCh1[ii,:] = m.atan2(trueRtCh1[ii,1], trueRtCh1[ii,0])
+        trueElAngCh2[ii,:] = m.atan2(trueRtCh2[ii,1], trueRtCh2[ii,0])
 
-        trueElAngCh1[ii,:] = m.atan2(trueRtCh1[ii,2]/trueRtCh1[ii,1])
-        trueElAngCh2[ii,:] = m.atan2(trueRtCh2[ii,2]/trueRtCh2[ii,1])
-
-        trueLosRdotCh1[ii,:] = m.cos(trueElAngCh1[ii,1]) * si.v
-        trueLosRdotCh2[ii,:] = m.cos(trueElAngCh2[ii,1]) * si.v
+        trueLosRdotCh1[ii,:] = m.cos(trueElAngCh1[ii,0]) * si.v
+        trueLosRdotCh2[ii,:] = m.cos(trueElAngCh2[ii,0]) * si.v
 
         fdCh1[ii,:] = 2 * trueLosRdotCh1[ii,:]/si.lambda0
         fdCh2[ii,:] = 2 * trueLosRdotCh2[ii,:]/si.lambda0
 
-        PrCh1[ii,:] = calcSNR(trueLosRCh1[ii,1],trueElAngCh1[ii,1])
-        PrCh2[ii,:] = calcSNR(trueLosRCh2[ii,1],trueElAngCh2[ii,1])
-
+        PrCh1[ii,:] = calcSNR(trueLosRCh1[ii,0],trueElAngCh1[ii,0])
+        PrCh2[ii,:] = calcSNR(trueLosRCh2[ii,0],trueElAngCh2[ii,0])
+        
     # generate range-pulse/range-Doppler matrices for both radar channels
     for jj in range(0,numel):
 
@@ -111,6 +113,8 @@ def main():
 
     # generate smoothed elevation angle data with alpha-beta filter
     smoothElAng, smoothElAngRate = alphaBetaFilt(0.55, 0.3, measElAng)
+	
+	# Need to plot results using matplotlib
 
     return None
 
