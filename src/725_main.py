@@ -71,8 +71,18 @@ def main():
     for jj in range(0,numel):
 
         for kk in range(0,si.numPulses):
-            priCutCh1[kk,:] = matchFilt(trueLosRCh1[jj,1],kk)
-            priCutCh2[kk,:] = matchFilt(trueLosRCh2[jj,1],kk)
+            priCutCh1[kk,:] = matchFilt(trueLosRCh1[jj,0],kk)
+            
+            # DEBUG MATCH FILTER CODE
+            print('jj = ', jj)
+            print('kk = ', kk)
+            print('trueLosRCh1[jj,0] = ', trueLosRCh1[jj,0])
+            print('trueLosRCh2[jj,0] = ', trueLosRCh2[jj,0])
+            sys.exit()
+            
+            priCutCh2[kk,:] = matchFilt(trueLosRCh2[jj,0],kk)
+            
+            
 
         priSize = max(priCutCh1.shape)
 
